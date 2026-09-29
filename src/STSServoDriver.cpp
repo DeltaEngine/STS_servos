@@ -205,12 +205,13 @@ int STSServoDriver::sendMessage(byte const &servoId,
     }
     int ret = port_->write(message, 6 + paramLength);
     port_->flush();
-    delayMicroseconds(20);
     if (this->dirPin_ < 255){
         digitalWrite(dirPin_, LOW);
     }
-    // Give time for the message to be processed.
-    delayMicroseconds(200);
+    while (port_->available() > 0)
+    {
+        port_->read();
+    }
     return ret;
 }
 
