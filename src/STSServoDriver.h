@@ -88,7 +88,7 @@ public:
     /// \param dirPin Pin used for setting communication direction
     /// \param serialPort Serial port, default is Serial
     /// \param baudRate Baud rate, default 1Mbps
-    /// \returns  True on success (at least one servo responds to ping)
+    /// \returns  True when bus initialized; caller discovers servo IDs
     bool init(byte const &dirPin, HardwareSerial *serialPort = nullptr, long const &baudRate = 1000000);
 
     /// \brief Initialize the servo driver without direction pin.
@@ -97,7 +97,7 @@ public:
     /// In this method, when direction pin number is 255, the pin is inactive.  
     /// \param serialPort Serial port, default is Serial
     /// \param baudRate Baud rate, default 1Mbps
-    /// \returns  True on success (at least one servo responds to ping)
+    /// \returns  True when bus initialized; caller discovers servo IDs
     bool init(HardwareSerial *serialPort = nullptr, long const &baudRate = 1000000);
 
     /// \brief Ping servo

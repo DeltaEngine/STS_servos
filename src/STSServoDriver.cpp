@@ -35,11 +35,8 @@ bool STSServoDriver::init(byte const& dirPin, HardwareSerial *serialPort,long co
     for (int i = 0; i < 256; i++)
         servoType_[i] = ServoType::UNKNOWN;
 
-    // Test that a servo is present.
-    for (byte i = 0; i < 0xFE; i++)
-        if (ping(i))
-            return true;
-    return false;
+    // Initialize bus only; caller discovers configured servo IDs.
+    return true;
 }
 
 bool STSServoDriver::init(HardwareSerial *serialPort, long const& baudRate)
