@@ -184,6 +184,9 @@ int STSServoDriver::sendMessage(byte const &servoId,
                                 byte const &paramLength,
                                 byte *parameters)
 {
+	while (port_->available() > 0) {
+        port_->read();
+    }
     byte message[6 + paramLength];
     byte checksum = servoId + paramLength + 2 + commandID;
     message[0] = 0xFF;
@@ -205,10 +208,7 @@ int STSServoDriver::sendMessage(byte const &servoId,
     if (this->dirPin_ < 255){
         digitalWrite(dirPin_, LOW);
     }
-    while (port_->available() > 0)
-    {
-        port_->read();
-    }
+    delayMicroseconds(200);
     return ret;
 }
 
@@ -321,7 +321,7 @@ int STSServoDriver::receiveMessage(byte const& servoId,
     if (this->dirPin_ < 255){
         digitalWrite(dirPin_, LOW);
     }
-    
+
     byte result[readLength + 5];
     size_t rd = port_->readBytes(result, readLength + 5);
     if (rd != (unsigned short)(readLength + 5))
@@ -382,6 +382,9 @@ void STSServoDriver::setTargetPositions(byte const &numberOfServos, const byte s
                                         const int positions[],
                                         const int speeds[])
 {
+    while (port_->available() > 0) {
+        port_->read();
+    }
     if (this->dirPin_ < 255) {
         digitalWrite(dirPin_, HIGH);
     }
