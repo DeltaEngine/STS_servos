@@ -14,9 +14,18 @@ This low-cost servo offers very interesting properties at a quite cheap price (a
 - Open and close loop velocity commands
 - Position, current and temperature sensors
 
-This library was made mostly with simple, "Hello World" applications in mind. Thus, its high-level API only provides access to
-the main, basic functions. However, all commands and registers are exposed, thus more complex applications can be easily
-written from it.
+Register access is private. Use named getters/setters; driver owns register widths,
+encoding, value ranges and EEPROM turnaround timing. Torque limits use 0..1000;
+position offsets use signed -2047..2047 counts. Acceleration accepts 0..254.
+
+Setters return false on invalid values, communication failures or servo faults.
+Unicast writes require response status level 1 (servo default); broadcast writes
+cannot be acknowledged. Reads can return a legitimate zero: inspect getLastError()
+to distinguish failure. Copy its message before another driver call, which clears it.
+Keep each driver on one bus task, or serialize calls externally.
+
+Run tests/Run-DriverCheck.ps1 in PowerShell with installed MSVC to check packet widths,
+encoding, validation and communication failures without attached motors.
 
 ## Example
 
