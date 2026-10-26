@@ -630,6 +630,11 @@ bool STSServoDriver::setAngularResolution(byte const &servoId, int value)
 	return setByte(servoId, STSRegisters::ANGULAR_RESOLUTION, value, 1, 100);
 }
 
+bool STSServoDriver::setResponseStatusLevel(byte const &servoId, bool enabled)
+{
+	return setByte(servoId, STSRegisters::RESPONSE_STATUS_LEVEL, enabled ? 1 : 0, 0, 1);
+}
+
 bool STSServoDriver::setResponseDelay(byte const &servoId, int value)
 {
 	return setByte(servoId, STSRegisters::RESPONSE_DELAY, value, 0, 254);

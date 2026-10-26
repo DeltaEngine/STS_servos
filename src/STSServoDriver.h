@@ -42,6 +42,7 @@ public:
 	bool setMinimumAngle(byte const &servoId, int value);
 	bool setMaximumAngle(byte const &servoId, int value);
 	bool setAngularResolution(byte const &servoId, int value);
+	bool setResponseStatusLevel(byte const &servoId, bool enabled);
 	bool setResponseDelay(byte const &servoId, int value);
 	bool setMaximumTemperature(byte const &servoId, int value);
 	bool setTorqueProtection(byte const &servoId, int value);
