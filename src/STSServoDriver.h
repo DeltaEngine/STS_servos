@@ -20,6 +20,9 @@ public:
 		byte const &dirPin, HardwareSerial *serialPort = nullptr, long const &baudRate = 1000000);
 	bool init(HardwareSerial *serialPort = nullptr, long const &baudRate = 1000000);
 	bool ping(byte const &servoId);
+	uint8_t getStatus(byte const &servoId);
+	uint8_t getUninstallCondition(byte const &servoId);
+	uint8_t getLedAlarm(byte const &servoId);
 	bool setId(byte const &oldServoId, byte const &newServoId);
 	bool setPositionOffset(byte const &servoId, int const &offset, bool persist = true);
 	int getCurrentPosition(byte const &servoId);
@@ -77,7 +80,7 @@ private:
 		byte const *parameters, bool const &asynchronous = false);
 	int readRegisters(
 		byte const &servoId, byte const &startRegister, byte const &readLength, byte *outputBuffer);
-	bool convertIntToBytes(byte const &servoId, int const &value, byte result[2]);
+	void convertIntToBytes(byte const &servoId, int const &value, byte result[2]);
 	bool determineServoType(byte const &servoId);
 	HardwareSerial *port_ = nullptr;
 	byte dirPin_ = 255;
